@@ -4,6 +4,8 @@ A weiqi go tool. 圍棋打譜練習程式
 這是一個以python+tk所寫成的小程式。可以將儲存為sgf格式的定石、詰棋作為練習。</BR>
 跟一般的打譜程式有何不同：這個程式是以作死活的方式練習sgf，強調是否記住正確的著手。
 
+<img src="./images/weiqigo.png" alt="weiqigo"/>
+
 ## License
 本程式為 MIT License ，部份程式有各自的 License ，分別為
 
