@@ -12,6 +12,21 @@ A weiqi go tool. 圍棋打譜練習程式
 * [sgf.py](https://github.com/jtauber/sgf)
 * [board.py](https://github.com/ymgaq/Pyaq)
 
+## 快速開始
+
+開始前請先安裝以下的 python library（請注意本程式使用 python3）
+1. Tkinter
+2. treelib
+
+請輸入下列指令安裝，或自行使用下載可執行的版本
+
+    pip3 install -r requirements.txt
+
+請輸入以下指令打開圖形界面
+
+    $ python weiqigo.py
+
+
 ## 操作說明
 * 選目錄：按「選目錄」鈕，選擇欲練習檔案存放的目錄，不包含子目錄。</BR>
 * 滑鼠左鍵：在棋盤上按滑鼠左鍵答題，錯誤時畫面顯示X。</BR>
