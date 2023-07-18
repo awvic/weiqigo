@@ -7,10 +7,10 @@ A weiqi go tool. 圍棋打譜練習程式
 <img src="./images/weiqigo.png" alt="weiqigo" width="520"/>
 
 ## License
-本程式為 MIT License ，部份程式有各自的 License ，分別為
+本程式為 MIT License ，所使用部份程式有各自的 License ，分別為
 
-* [sgf.py](https://github.com/jtauber/sgf)
-* [board.py](https://github.com/ymgaq/Pyaq)
+* [sgf.py](https://github.com/jtauber/sgf)  (sgf檔案格式parsing)
+* [board.py](https://github.com/ymgaq/Pyaq)  (圍棋對奕規則)
 
 ## 快速開始
 
