@@ -2,19 +2,18 @@
 # -*- coding: utf-8 -*-
 
 import tkinter as tk
-# from pydlgo.board import *
+from tkinter import filedialog
+
 from board import *
 import sgf
 from sgfboardtree import BoardTree
+from quizfactory import *
 
-from tkinter import filedialog
-
+import os
 import glob
 
 import logging
 import datetime
-
-from quizfactory import *
 
 
 # logger setting
@@ -28,9 +27,15 @@ formatter = logging.Formatter(
 # ch.setLevel(logging.DEBUG)
 # ch.setFormatter(formatter)
 
-log_filename = datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S.log")
+# log_filename = datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S.log")
+log_filename = datetime.datetime.now().strftime("Honinbo.log")
 fh = logging.FileHandler(log_filename)
-fh.setLevel(logging.DEBUG)
+
+# DEBUG 目錄或檔案存在時才紀錄DEBUG訊息
+if os.path.exists("DEBUG"):
+    fh.setLevel(logging.DEBUG)
+else:
+    fh.setLevel(logging.ERROR)
 fh.setFormatter(formatter)
 
 # logger.addHandler(ch)
@@ -672,28 +677,33 @@ canvas.pack()
 
 
 #label 題目
-mylabel_name = tk.Label(window, textvariable=name_label, font=('Arial',18), fg='#00f')  # 放入標籤
+# mylabel_name = tk.Label(window, textvariable=name_label, font=('Arial',18), fg='#00f')  # 放入標籤
+mylabel_name = tk.Label(window, textvariable=name_label, font=('微軟正黑體',18), fg='#00f')  # 放入標籤
 mylabel_name.place(relx=0.1, rely=0.80)
 
 #label 第幾手
-mylabel1 = tk.Label(window, textvariable=cnt_label, font=('Arial',20))  # 放入標籤
+# mylabel1 = tk.Label(window, textvariable=cnt_label, font=('Arial',20))  # 放入標籤
+mylabel1 = tk.Label(window, textvariable=cnt_label, font=('微軟正黑體',20))  # 放入標籤
 # mylabel1.pack()
-mylabel1.place(relx=0.76, rely=0.85)
+mylabel1.place(relx=0.72, rely=0.85)
 
 #label 第幾題
-mylabel2 = tk.Label(window, textvariable=quiz_label, font=('Arial',20))  # 放入標籤
+# mylabel2 = tk.Label(window, textvariable=quiz_label, font=('Arial',20))  # 放入標籤
+mylabel2 = tk.Label(window, textvariable=quiz_label, font=('微軟正黑體',20))  # 放入標籤
 # mylabel2.pack()
-mylabel2.place(relx=0.76, rely=0.92)
+mylabel2.place(relx=0.72, rely=0.92)
 
 #label 是否答對
-mylabel3 = tk.Label(window, textvariable=ans_label, font=('Arial',20), fg='#f00')  # 放入標籤
+# mylabel3 = tk.Label(window, textvariable=ans_label, font=('Arial',20), fg='#f00')  # 放入標籤
+mylabel3 = tk.Label(window, textvariable=ans_label, font=('微軟正黑體',20), fg='#f00')  # 放入標籤
 # mylabel3.pack()
 mylabel3.place(relx=0.86, rely=0.80)
 
 # Button 設定 command 參數
 btn1 = tk.Button(window,
                 text='上一步',
-                font=('Arial',14,'bold'),
+                # font=('Arial',14,'bold'),
+                font=('微軟正黑體',14),
                 command=prev
               )
 # btn1.pack(side='right')
@@ -701,28 +711,31 @@ btn1.place(relx=0.36, rely=0.85)
 
 btn2 = tk.Button(window,
                 text='下一步',
-                font=('Arial',14,'bold'),
+                # font=('Arial',14,'bold'),
+                font=('微軟正黑體',14),
                 command=next
               )
 # btn2.pack(side='right')
-btn2.place(relx=0.54, rely=0.85)
+btn2.place(relx=0.50, rely=0.85)
 
 
 # Button 設定 command 參數，點擊按鈕時執行 show 函式
-btn3 = tk.Button(window,
-                text='讀檔案',
-                font=('Arial',14,'bold'),
-                command=load_file
-                #command=load_and_show_question_file
-              )
-# btn3.pack()
-btn3.place(relx=0.1, rely=0.85)
+# btn3 = tk.Button(window,
+#                 text='讀檔案',
+#                 # font=('Arial',14,'bold'),
+#                 font=('微軟正黑體',14,'bold'),
+#                 command=load_file
+#                 #command=load_and_show_question_file
+#               )
+# # btn3.pack()
+# btn3.place(relx=0.1, rely=0.85)
 
 
 # Button 設定 command 參數，點擊按鈕時執行 show 函式
 btn_folder = tk.Button(window,
                 text='選目錄',
-                font=('Arial',14,'bold'),
+                # font=('Arial',14,'bold'),
+                font=('微軟正黑體',14),
                 command=load_folder
               )
 btn_folder.place(relx=0.1, rely=0.92)
@@ -730,18 +743,20 @@ btn_folder.place(relx=0.1, rely=0.92)
 
 btn_reload_quiz = tk.Button(window,
                 text='重答',
-                font=('Arial',14,'bold'),
+                # font=('Arial',14,'bold'),
+                font=('微軟正黑體',14),
                 command=reload_quiz
               )
 # btn1.pack(side='right')
-btn_reload_quiz.place(relx=0.25, rely=0.92)
+btn_reload_quiz.place(relx=0.23, rely=0.92)
 
 
 
 # Button 設定 command 參數
 btn_prev_quiz = tk.Button(window,
                 text='上一題',
-                font=('Arial',14,'bold'),
+                # font=('Arial',14,'bold'),
+                font=('微軟正黑體',14),
                 command=prev_quiz
               )
 # btn1.pack(side='right')
@@ -749,15 +764,16 @@ btn_prev_quiz.place(relx=0.36, rely=0.92)
 
 btn_next_quiz = tk.Button(window,
                 text='下一題',
-                font=('Arial',14,'bold'),
+                # font=('Arial',14,'bold'),
+                font=('微軟正黑體',14),
                 command=next_quiz
               )
 # btn2.pack(side='right')
-btn_next_quiz.place(relx=0.54, rely=0.92)
+btn_next_quiz.place(relx=0.50, rely=0.92)
 
 
 hint_label = tk.StringVar()
-hint_btn = tk.Checkbutton(window, text='提示',
+hint_btn = tk.Checkbutton(window, text='提示', font=('微軟正黑體',10),
                             variable=hint_label, onvalue='1', offvalue='0',
                             command=show_hint)
 hint_btn.place(relx=0.01, rely=0.92)

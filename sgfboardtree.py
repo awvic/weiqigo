@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# from pydlgo.board import *
 from board import *
 import sgf
+
 from treelib import Node, Tree
 import uuid
 import codecs
