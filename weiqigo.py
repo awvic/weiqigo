@@ -733,7 +733,7 @@ def reload_quiz():
 
     # 顯示第幾題
     quiz_cnt = qf.current_num()
-    quiz_label.set(quiz_cnt)
+    quiz_label.set(str(qf.current_num()) + '/' + str(qf.cnt()))
 
     switch_question_file()
 
