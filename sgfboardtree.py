@@ -104,20 +104,6 @@ class BoardTree(object):
 
     # 移至下一手，並回傳第一手至當手棋資料
     def next_move(self):
-        # moves = [] # 存 node
-        # childs = self._tree.children(self._current_node)
-        # if len(childs)>0:
-        #     moves.insert(0, childs[0])
-        #     # DEBUG 暫時只到第一手
-        #     self._current_node = childs[0].identifier
-        #     parent = self._tree.parent(childs[0].identifier)
-        #     while parent.identifier != "root":
-        #         logging.debug("p=", parent)
-        #         moves.insert(0, parent)
-        #         # nexts.append(parent)
-        #         parent = self._tree.parent(parent.identifier)
-        # return moves
-
         moves = [] # 存 node
         childs = self._tree.children(self._current_node)
         if len(childs)>0:
@@ -146,23 +132,9 @@ class BoardTree(object):
             return []
 
         moves = [] # 存 node
-        # p = self._tree.get_node(self._current_node)
         self._current_node = self._tree.parent(self._current_node).identifier
 
         return self.get_current_path()
-
-        # if self._current_node == "root":
-        #     return []
-
-        # p = self._tree.get_node(self._current_node)
-        # moves.insert(0, p)
-        # parent = self._tree.parent(p.identifier)
-        # while parent.identifier != "root":
-        #     logging.debug("p=", parent)
-        #     moves.insert(0, parent)
-        #     # nexts.append(parent)
-        #     parent = self._tree.parent(parent.identifier)
-        # return moves
 
 
     # 回傳自第一手至本手
@@ -182,10 +154,10 @@ class BoardTree(object):
         return moves
 
 
-    # 回傳第一手至註解為qq當手棋資料(只判斷第一分支)
-    # 死活題 qq 是題目的開始
-    # r 是 答對
-    # w 是 答錯
+    # 回傳第一手至註解為@@當手棋資料(只判斷第一分支)
+    # 死活題 @@ 是題目的開始
+    # @R 是 答對
+    # @W 是 答錯
     def get_question_move(self):
 
         # 判斷作為死活題標記符號是否存在，若不存在則只留第一手棋
@@ -206,7 +178,7 @@ class BoardTree(object):
             moves.append(p)
             # logging.debug("p tag=" + p.tag)
             # logging.debug("len(p.tag)=" + str(len(p.tag)))
-            if len(p.tag)>5 and p.tag[5:]=='qq':
+            if len(p.tag)>5 and p.tag[5:]=='@@':
                 # logging.debug("p tag[5:2]=" + p.tag[5:])
                 # logging.debug("i break")
                 qq_exist = True

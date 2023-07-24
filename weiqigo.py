@@ -16,11 +16,10 @@ import logging
 import datetime
 
 
-# 棋盤顯示方式 0:完整 1:只顯示右上角棋盤 其餘類推
+# 棋盤顯示方式 0:完整 1:放大顯示右上角棋盤 其餘類推
 BOARD_DISPLAY_TYPE = {'FULL':0, 'UPPER_RIGHT': 1, 'LOWER_RIGHT': 2, 'LOWER_LEFT': 3, 'UPPER_LEFT': 4}
 # 預設顯示完整19路棋盤
-# board_dis = BOARD_DISPLAY_TYPE['FULL']
-board_dis = BOARD_DISPLAY_TYPE['LOWER_LEFT']
+board_dis = BOARD_DISPLAY_TYPE['FULL']
 
 # logger setting
 logger = logging.getLogger()
@@ -116,10 +115,6 @@ D_H_SIZE = B_H_SIZE
 D_W_SIZE = B_W_SIZE
 D_QI_H_SIZE = B_QI_H_SIZE
 
-# text_b_upper_r = B_UPPER - 28
-# text_b_left_r = B_LEFT -2
-
-
 
 ALPHA = "ABCDEFGHJKLMNOPQRST"
 SGF = "abcdefghijklmnopqrs"
@@ -136,7 +131,7 @@ window.title("圍棋練習")
 window.minsize(width=600, height=660)
 window.resizable(width=False, height=False)
 
-canvas = tk.Canvas(window, width=600, height=660)
+canvas = tk.Canvas(window, width=560, height=530)
 
 quiz_name = '題目說明'
 name_label = tk.StringVar()  # 題目說明
@@ -156,7 +151,7 @@ ans_label.set(ans_right)
 
 def next():
     # 下一步按鈕
-    global step_cnt        # n 是全域變數
+    global step_cnt 
     global b
 
     global error_no
@@ -197,7 +192,7 @@ def next():
 def prev():
     # 上一步按鈕
 
-    global step_cnt        # n 是全域變數
+    global step_cnt
     global b
 
     global error_no
@@ -235,121 +230,6 @@ def prev():
         draw_board()   
 
 
-# draw_board()
-
-
-# 繪製棋盤面
-# def draw_board():
-
-#     global error_no
-#     global error_pos
-
-#     # 畫棋盤
-#     canvas.delete("all")
-
-#     # 棋盤線
-#     for row in range(19):
-#         # 水平線
-#         sx = B_LEFT
-#         sy = B_UPPER + row * B_H_SIZE
-#         ex = B_LEFT + B_W_SIZE * 18
-#         ey = B_UPPER + row * B_H_SIZE
-#         canvas.create_line(sx, sy, ex, ey, width=1)
-#     for col in range(19):
-#         # 垂直線
-#         sx = B_LEFT + col * B_W_SIZE
-#         sy = B_UPPER
-#         ex = B_LEFT + col * B_W_SIZE
-#         ey = B_UPPER + B_H_SIZE * 18
-#         canvas.create_line(sx, sy, ex, ey, width=1)
-
-#     # 棋盤座標標示(要改)
-#     text_b_upper_c = B_UPPER - 8
-#     text_b_left_c = B_LEFT - 30
-#     text_b_upper_r = B_UPPER - 28
-#     text_b_left_r = B_LEFT -2
-
-#     # for row in reversed(range(19)):
-#     for row in range(19):
-#         sx = text_b_left_c
-#         sy = text_b_upper_c + row * B_H_SIZE
-#         canvas.create_text(sx, sy, text=str(19-row), anchor='nw')
-#         canvas.create_text(sx + 19 * B_W_SIZE + 28, sy, text=str(19-row), anchor='nw')
-
-#     for col in range(19):
-#         sx = text_b_left_r + col * B_W_SIZE
-#         sy = text_b_upper_r
-#         canvas.create_text(sx, sy, text=ALPHA[col], anchor='nw')
-#         canvas.create_text(sx, sy + 19 * B_W_SIZE + 38, text=ALPHA[col], anchor='nw')
-
-#     # 畫星位
-#     for i in range(3):
-#         for j in range(3):
-#             canvas.create_oval(B_LEFT+(3+i*6)*B_W_SIZE-3, B_UPPER+(3+j*6)*B_H_SIZE-3, B_LEFT+(3+i*6)*B_W_SIZE+3, B_UPPER+(3+j*6)*B_H_SIZE+3, width=1, fill='#000', outline='#000')
-
-#     # 畫棋子
-#     b_list = b.status()
-
-#     for i in range(19):
-#         for j in range(19):
-#             if b_list[i*19+j]==BLACK or b_list[i*19+j]==WHITE:
-#                 if b_list[i*19+j]==BLACK:
-#                     c_col = '#000'
-#                 elif b_list[i*19+j]==WHITE:
-#                     c_col = '#fff'
-#                 pos_y = j
-#                 canvas.create_oval(B_LEFT+pos_y*B_W_SIZE-B_QI_H_SIZE, B_UPPER+i*B_H_SIZE-B_QI_H_SIZE, B_LEFT+pos_y*B_W_SIZE+B_QI_H_SIZE, B_UPPER+i*B_H_SIZE+B_QI_H_SIZE, width=1, fill=c_col, outline='#000')
-
-#     # DEBUG
-#     #logging.debug(' '.join(b_list))
-
-#     # DEBUG
-#     lpos = []
-#     lpos = b.get_last_move()
-#     if len(lpos)>0:
-#         # logging.debug("最後一手棋：" + BoardTree.node_list_to_str(lpos))
-#         # 調整成 tk 座標
-#         lpos[1] = 18 - lpos[1]
-#         hint_size = B_QI_H_SIZE / 3
-#         canvas.create_oval(B_LEFT+lpos[0]*B_W_SIZE-hint_size, B_UPPER+lpos[1]*B_H_SIZE-hint_size, B_LEFT+lpos[0]*B_W_SIZE+hint_size, B_UPPER+lpos[1]*B_H_SIZE+hint_size, width=1, fill='#f00', outline='#f00')
-
-#     # 繪製提示下一手的點(當有多手的可能時)
-#     if boardtree:
-#         move = boardtree.get_next_move()
-#         logging.debug("possible moves=" + BoardTree.node_list_to_str(move))
-#         pos = []
-#         # 原本的作法，只顯示有變化的手
-#         # if len(move)>1:
-#         #     # 大於一手時顯示
-#         #     for m in move:
-#         #         pos.append(sgf_to_tkcoor(m.data[2:]))
-
-#         #     for p in pos:
-#         #         hint_size = B_QI_H_SIZE / 2
-#         #         canvas.create_oval(B_LEFT+p[0]*B_W_SIZE-hint_size, B_UPPER+p[1]*B_H_SIZE-hint_size, B_LEFT+p[0]*B_W_SIZE+hint_size, B_UPPER+p[1]*B_H_SIZE+hint_size, width=1, fill='#999', outline='#999')
-
-#         # 是否顯示提示位置
-#         global if_hint
-#         if if_hint:
-#             for m in move:
-#                 pos.append(sgf_to_tkcoor(m.data[2:]))
-
-#             for p in pos:
-#                 hint_size = B_QI_H_SIZE / 2
-#                 canvas.create_oval(B_LEFT+p[0]*B_W_SIZE-hint_size, B_UPPER+p[1]*B_H_SIZE-hint_size, B_LEFT+p[0]*B_W_SIZE+hint_size, B_UPPER+p[1]*B_H_SIZE+hint_size, width=1, fill='#999', outline='#999')
-
-#     # message = ""
-#     if error_no == 1 and len(error_pos)==2:
-#         # message += "錯誤"
-#         # 畫一個叉叉
-#         canvas.create_line(B_LEFT+error_pos[0]*B_W_SIZE-B_QI_H_SIZE, B_UPPER+error_pos[1]*B_H_SIZE-B_QI_H_SIZE, B_LEFT+error_pos[0]*B_W_SIZE+B_QI_H_SIZE, B_UPPER+error_pos[1]*B_H_SIZE+B_QI_H_SIZE, width=6, fill='#f00')
-#         canvas.create_line(B_LEFT+error_pos[0]*B_W_SIZE+B_QI_H_SIZE, B_UPPER+error_pos[1]*B_H_SIZE-B_QI_H_SIZE, B_LEFT+error_pos[0]*B_W_SIZE-B_QI_H_SIZE, B_UPPER+error_pos[1]*B_H_SIZE+B_QI_H_SIZE, width=6, fill='#f00')
-
-#     # logging.debug("error_no=" + str(error_no))
-
-#     # reset label
-#     ans_right = ""
-
 
 # 繪製棋盤面
 def draw_board():
@@ -377,26 +257,6 @@ def draw_board():
         canvas.create_line(sx, sy, ex, ey, width=1)
 
 
-#     # 棋盤座標標示(要改)
-#     text_b_upper_c = B_UPPER - 8
-#     text_b_left_c = B_LEFT - 30
-#     text_b_upper_r = B_UPPER - 28
-#     text_b_left_r = B_LEFT -2
-
-#     # for row in reversed(range(19)):
-#     for row in range(19):
-#         sx = text_b_left_c
-#         sy = text_b_upper_c + row * B_H_SIZE
-#         canvas.create_text(sx, sy, text=str(19-row), anchor='nw')
-#         canvas.create_text(sx + 19 * B_W_SIZE + 28, sy, text=str(19-row), anchor='nw')
-
-#     for col in range(19):
-#         sx = text_b_left_r + col * B_W_SIZE
-#         sy = text_b_upper_r
-#         canvas.create_text(sx, sy, text=ALPHA[col], anchor='nw')
-#         canvas.create_text(sx, sy + 19 * B_W_SIZE + 38, text=ALPHA[col], anchor='nw')
-
-
     # 棋盤座標標示
     NUMBER_UPPER_GAP = 6
     NUMBER_LEFT_GAP = 10
@@ -404,12 +264,7 @@ def draw_board():
     ENGLISH_LEFT_GAP = 2
     FONT_SIZE=14
 
-    # text_b_upper_c = D_UPPER - 8
-    # text_b_left_c = D_LEFT - 30
-    # text_b_upper_r = D_UPPER - 28
-    # text_b_left_r = D_LEFT -2
-
-    # 數字列
+    # 畫數字列
     for row in range(19):
         # 左排數字列
         l_sx = D_LEFT - NUMBER_LEFT_GAP - FONT_SIZE
@@ -421,7 +276,7 @@ def draw_board():
         r_sy = D_UPPER - NUMBER_UPPER_GAP + row * D_H_SIZE
         canvas.create_text(r_sx + 18 * D_W_SIZE, r_sy, text=str(19-row), anchor='nw')
 
-    # 英文列
+    # 畫英文列
     for col in range(19):
         # 上排英文列
         u_sx = D_LEFT - ENGLISH_LEFT_GAP + col * D_W_SIZE
@@ -500,9 +355,7 @@ def draw_board():
                                    width=1, fill='#999', outline='#999')
 
 
-    # message = ""
     if error_no == 1 and len(error_pos)==2:
-        # message += "錯誤"
         # 畫一個叉叉
         canvas.create_line(D_LEFT+error_pos[0]*D_W_SIZE-D_QI_H_SIZE, D_UPPER+error_pos[1]*D_H_SIZE-D_QI_H_SIZE, 
                            D_LEFT+error_pos[0]*D_W_SIZE+D_QI_H_SIZE, D_UPPER+error_pos[1]*D_H_SIZE+D_QI_H_SIZE, 
@@ -513,9 +366,7 @@ def draw_board():
 
     # logging.debug("error_no=" + str(error_no))
 
-    # reset label
     ans_right = ""
-
 
 
 def key(event):
@@ -540,16 +391,23 @@ def key(event):
         D_W_SIZE = B_W_SIZE
         D_QI_H_SIZE = B_QI_H_SIZE
         draw_board()
-        
     elif event.keycode==113:
         # F2 => 右上
         board_dis = BOARD_DISPLAY_TYPE['UPPER_RIGHT']
-
+        D_LEFT = B_LEFT -200
+        D_UPPER = B_UPPER
+        D_H_SIZE = B_H_SIZE + 14
+        D_W_SIZE = B_W_SIZE + 12
+        D_QI_H_SIZE = B_QI_H_SIZE + 6
         draw_board()
     elif event.keycode==114:
         # F3 => 右下
         board_dis = BOARD_DISPLAY_TYPE['LOWER_RIGHT']
-
+        D_LEFT = B_LEFT - 200
+        D_UPPER = B_UPPER - 260
+        D_H_SIZE = B_H_SIZE + 14
+        D_W_SIZE = B_W_SIZE + 12
+        D_QI_H_SIZE = B_QI_H_SIZE + 6
         draw_board()
     elif event.keycode==115:
         # F4 => 左下
@@ -564,7 +422,11 @@ def key(event):
     elif event.keycode==116:
         # F5 => 左上
         board_dis = BOARD_DISPLAY_TYPE['UPPER_LEFT']
-
+        D_LEFT = B_LEFT
+        D_UPPER = B_UPPER
+        D_H_SIZE = B_H_SIZE + 14
+        D_W_SIZE = B_W_SIZE + 12
+        D_QI_H_SIZE = B_QI_H_SIZE + 6
         draw_board()
 
 # 右滑鼠鍵自由點選，供自由變化
@@ -608,10 +470,8 @@ def rmouse_down(event):
     # A0 format position
     pos = '{}{}'.format(ALPHA[qx], 19-qy)
     logging.debug(pos)
-    #logging.debug('{}{}'.format(ALPHA[qx], 19-qy))
 
     # sgf format position
-    # sgfpos = '{}{}'.format(ALPHA3[qx], ALPHA2[18-qy])
     sgfpos = '{}{}'.format(SGF[qx], SGF[qy])
     logging.debug(sgfpos)
 
@@ -668,7 +528,6 @@ def lmouse_down(event):
     # A0 format position
     pos = '{}{}'.format(ALPHA[qx], 19-qy)
     #logging.debug(pos)
-    #logging.debug('{}{}'.format(ALPHA[qx], 19-qy))
 
     # sgf format position
     sgfpos = '{}{}'.format(SGF[qx], SGF[qy])
@@ -683,16 +542,15 @@ def lmouse_down(event):
     global ans_right
     ans_right = ""
     for n in move:
-        # if sgfpos == n.data[2:]:
         if sgfpos == n.data[2:4]:
             hit = True
             boardtree.set_next_move(sgfpos)
             logging.debug("n.tag=" + n.tag)
-            if len(n.tag)>=6 and n.tag[5:]=='r':
+            if len(n.tag)>=6 and n.tag[5:]=='@R':
                 # problem solved
                 logging.debug("problem solved!")
                 ans_right = "正確"
-            elif len(n.tag)>=6 and n.tag[5:]=='w':
+            elif len(n.tag)>=6 and n.tag[5:]=='@W':
                 # problem solved
                 logging.debug("wrong!")
                 ans_right = "錯誤"
@@ -743,7 +601,7 @@ def motion(event):
 def load_file():
     global sgf_collection
     file_path = filedialog.askopenfilename()   # 選擇檔案後回傳檔案路徑與名稱
-    logging.debug(file_path)                           # 印出路徑
+    logging.debug(file_path)                   # 印出路徑
     # testing read and show sgf
     global boardtree
     boardtree = BoardTree(file_path)
@@ -755,14 +613,14 @@ def load_file():
 def load_and_show_question_file():
     global sgf_collection
     file_path = filedialog.askopenfilename()   # 選擇檔案後回傳檔案路徑與名稱
-    logging.debug(file_path)                           # 印出路徑
+    logging.debug(file_path)                   # 印出路徑
     # testing read and show sgf
     global boardtree
     boardtree = BoardTree(file_path)
     boardtree.show_tree()
 
     # 讀死活題
-    global step_cnt        # n 是全域變數
+    global step_cnt 
     global b
 
     global error_no
@@ -801,14 +659,14 @@ def switch_question_file():
     global qf
     global sgf_collection
     file_path = qf.current_quiz_full_name()      # 選擇檔案後回傳檔案路徑與名稱
-    logging.debug(file_path)                             # 印出路徑
+    logging.debug(file_path)                     # 印出路徑
     global boardtree
     boardtree = BoardTree(file_path)
     boardtree.show_tree()
     qf.set_current_quiz_comment(boardtree.comment)
 
     # 讀死活題
-    global step_cnt        # n 是全域變數
+    global step_cnt
     global b
 
     global error_no
@@ -846,7 +704,6 @@ def switch_question_file():
 
             # 重繪盤面
             draw_board()        
-
 
 
 # 讀folder內的sgf們，使成為一系列問題
@@ -915,9 +772,7 @@ draw_board()
 #canvas.bind('<Motion>', motion)
 canvas.bind("<Button-1>", lmouse_down)
 canvas.bind("<Button-3>", rmouse_down)
-
 canvas.pack()
-
 
 window.bind("<Key>", key)
 
