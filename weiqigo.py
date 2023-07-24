@@ -15,6 +15,7 @@ import glob
 import logging
 import datetime
 
+# 如果注意到這行，表示你正在(打算)看程式碼。 source code 有點 ugly, 請多包涵。
 
 # 棋盤顯示方式 0:完整 1:放大顯示右上角棋盤 其餘類推
 BOARD_DISPLAY_TYPE = {'FULL':0, 'UPPER_RIGHT': 1, 'LOWER_RIGHT': 2, 'LOWER_LEFT': 3, 'UPPER_LEFT': 4}
@@ -127,7 +128,7 @@ b = Board(board_size=19, komi=7.5)
 b_w = True
 
 window = tk.Tk()
-window.title("圍棋練習")
+window.title("圍棋練習 weiqigo")
 window.minsize(width=600, height=660)
 window.resizable(width=False, height=False)
 
