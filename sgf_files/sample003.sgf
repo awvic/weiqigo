@@ -3,6 +3,6 @@ SZ[19]
 PW[白棋]
 PB[黑棋]
 KM[6.5];B[dp];W[eq];B[ep];W[fq];B[fp];W[gr];B[gq];W[hr];B[hq];W[cm];B[cp];W[cj]
-C[qq]
+C[@@]
 ;B[iq]
-C[r])
+C[@R])

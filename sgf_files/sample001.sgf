@@ -5,8 +5,8 @@ PB[黑棋]
 KM[6.5]
 C[級位棋形02]
 ;B[pd];W[cp];B[cq];W[bq];B[dp];W[cr];B[eq];W[gq]
-C[qq]
+C[@W]
 (;B[co];W[dq];B[bp];W[cq];B[do]
-C[r])
+C[@R])
 (;B[dq];W[co]
-C[w]))
+C[@W]))
