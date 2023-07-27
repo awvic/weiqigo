@@ -14,7 +14,7 @@ A weiqi go tool. 圍棋打譜死活練習程式
 
 ## 快速開始
 
-開始前請先安裝以下的 python library（請注意本程式使用 python3）
+開始前請先安裝以下的 python library（本程式使用 python3）
 1. Tkinter
 2. treelib
 
