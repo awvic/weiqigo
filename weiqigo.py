@@ -99,14 +99,15 @@ boardtree = None
 # 繪製棋盤相關參數
 # 19X19標準參數
 
-B_H_SIZE = 24  # 棋盤格高度
-B_W_SIZE = 23  # 棋盤格寬度
-B_UPPER = 60   # 棋盤與 canvas 上緣的距離
-B_LEFT = 80    # 棋盤與 canvas 左緣的距離
+B_H_SIZE = 24     # 棋盤格高度
+B_W_SIZE = 23     # 棋盤格寬度
+B_UPPER = 60      # 棋盤與 canvas 上緣的距離
+B_LEFT = 80       # 棋盤與 canvas 左緣的距離
 
 # 棋子 size
 B_QI_SIZE = 20
 B_QI_H_SIZE = B_QI_SIZE / 2
+
 
 # 繪製棋盤相關參數
 # 實際繪製參數(可能是全部或四角，進行解析後的實際用參數)預設全棋盤
@@ -350,7 +351,7 @@ def draw_board():
                 pos.append(sgf_to_tkcoor(m.data[2:]))
 
             for p in pos:
-                hint_size = B_QI_H_SIZE / 2
+                hint_size = D_QI_H_SIZE / 2
                 canvas.create_oval(D_LEFT+p[0]*D_W_SIZE-hint_size, D_UPPER+p[1]*D_H_SIZE-hint_size, 
                                    D_LEFT+p[0]*D_W_SIZE+hint_size, D_UPPER+p[1]*D_H_SIZE+hint_size, 
                                    width=1, fill='#999', outline='#999')
@@ -665,6 +666,8 @@ def switch_question_file():
     boardtree = BoardTree(file_path)
     boardtree.show_tree()
     qf.set_current_quiz_comment(boardtree.comment)
+    # 紀錄目前的題目名稱
+    qf.save_status()
 
     # 讀死活題
     global step_cnt
@@ -726,6 +729,7 @@ def load_folder():
     # quiz_label.set(quiz_cnt)
     quiz_label.set(str(qf.current_num()) + '/' + str(qf.cnt()))
 
+    qf.load_status()
     switch_question_file()
 
 def reload_quiz():

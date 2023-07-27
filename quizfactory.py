@@ -134,3 +134,30 @@ class QuizFactory(object):
 
     def set_current_quiz_comment(self, new_comment):
         self._quizs[self._current].comment = new_comment
+
+    def save_status(self):
+        if len(self._quizs)==0:
+            return
+
+        save_file = join(self._path, "weiqigo.save")
+        with open(save_file, 'w', encoding='utf-8') as f:
+            f.write(self._quizs[self._current].name)
+
+    def load_status(self):
+        logging.debug(" --- quizfactory load_status --- ")
+        if len(self._quizs)==0:
+            return
+
+        last_file = ""
+        save_file = join(self._path, "weiqigo.save")
+        try:
+            with open(save_file, 'r', encoding='utf-8') as f:
+                last_file = f.readline()
+                logging.debug("last quiz file found: " + last_file)
+        except FileNotFoundError:
+            logging.debug("That's fine, Maybe the first time reading the folder.")
+
+        for i in range(0, len(self._quizs)):
+            if self._quizs[i].name == last_file:
+                self._current = i
+                return
