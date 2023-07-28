@@ -724,13 +724,15 @@ def load_folder():
     qf.load_quiz(file_path)
     qf.show()
 
+    # 前次作到第幾題的紀錄
+    qf.load_status()
+    switch_question_file()
+
     # 顯示第幾題
     # quiz_cnt = qf.current_num()
     # quiz_label.set(quiz_cnt)
     quiz_label.set(str(qf.current_num()) + '/' + str(qf.cnt()))
 
-    qf.load_status()
-    switch_question_file()
 
 def reload_quiz():
     global qf
