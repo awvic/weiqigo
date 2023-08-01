@@ -10,6 +10,7 @@ import codecs
 
 import logging
 import datetime
+import os
 
 # 將整個 sgf 檔案 load 進 treelib 內
 # 方便後續使用
@@ -27,6 +28,7 @@ class BoardTree(object):
         for node in child.nodes:
             move = ""
             comment = ""
+            # 虛手的資料為 B:: 或 W::
             for p in node.properties.items():
                 if p[0][0] == "B" or p[0][0] == "W":
                     move = p[0][0]+":"+p[1][0]
@@ -67,6 +69,7 @@ class BoardTree(object):
                 # collection[0]裏的 nodes 是主節點的所有nodes(整局棋內由第一手到最後一手)
                 # 所以要自己找出第一個分支的點，只紀錄第一變化手之前的點
                 # 其餘的棋在child內紀錄
+                # 虛手的資料為 B:: 或 W::
 
                 move = ""
                 comment = ""
@@ -99,7 +102,8 @@ class BoardTree(object):
         return self._comment
 
     def show_tree(self):
-        # self._tree.show()
+        if os.path.exists("DEBUG"):
+            self._tree.show()
         logging.debug(self._tree.to_json())
 
     # 移至下一手，並回傳第一手至當手棋資料
@@ -186,11 +190,15 @@ class BoardTree(object):
             childs = self._tree.children(self._current_node)           
 
 
-        # 死活題標記若不存在，則只留第一手棋(若不設qq則以第一手為qq)
+        # 死活題標記若不存在，則只留第一手棋(若不設@@則以第一手為@@)
         if not qq_exist and len(moves)>1:
             first_move = moves[0]
             moves.clear()
             moves.append(first_move)
+            # 重設至第一節點
+            self._current_node = "root"
+            childs = self._tree.children(self._current_node)
+            self._current_node = childs[0].identifier
 
          # logging.debug("get question move=", BoardTree.node_list_to_str(moves))
         return moves
