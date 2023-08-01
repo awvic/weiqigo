@@ -6,7 +6,8 @@ from tkinter import filedialog
 
 from board import *
 import sgf
-from sgfboardtree import BoardTree
+# from sgfboardtree import BoardTree
+from sgfboardtree import *
 from quizfactory import *
 
 import os
@@ -579,11 +580,11 @@ def lmouse_down(event):
             hit = True
             boardtree.set_next_move(sgfpos)
             logging.debug("n.tag=" + n.tag)
-            if len(n.tag)>=6 and n.tag[5:]=='@R':
+            if len(n.tag)>=6 and n.tag[5:]==RIGHT_MARK:
                 # problem solved
                 logging.debug("problem solved!")
                 ans_right = "正確"
-            elif len(n.tag)>=6 and n.tag[5:]=='@W':
+            elif len(n.tag)>=6 and n.tag[5:]==WRONG_MARK:
                 # problem solved
                 logging.debug("wrong!")
                 ans_right = "錯誤"

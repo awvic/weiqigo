@@ -19,6 +19,10 @@ import os
 # 根結點永遠是root
 # root的下一結點是sgf的第一步棋資料
 
+QUESTION_MARK = "@@"
+RIGHT_MARK = "@R"
+WRONG_MARK = "@W"
+
 
 class BoardTree(object):
 
@@ -158,10 +162,10 @@ class BoardTree(object):
         return moves
 
 
-    # 回傳第一手至註解為@@當手棋資料(只判斷第一分支)
-    # 死活題 @@ 是題目的開始
-    # @R 是 答對
-    # @W 是 答錯
+    # 回傳第一手至註解為@@ (QUESTION_MARK) 當手棋資料(只判斷第一分支)
+    # 死活題 @@ (QUESTION_MARK) 是題目的開始
+    # @R (RIGHT_MARK) 是 答對
+    # @W (WRONG_MARK)是 答錯
     def get_question_move(self):
 
         # 判斷作為死活題標記符號是否存在，若不存在則只留第一手棋
@@ -182,7 +186,8 @@ class BoardTree(object):
             moves.append(p)
             # logging.debug("p tag=" + p.tag)
             # logging.debug("len(p.tag)=" + str(len(p.tag)))
-            if len(p.tag)>5 and p.tag[5:]=='@@':
+            # if len(p.tag)>5 and p.tag[5:]=='@@':
+            if len(p.tag)>5 and p.tag[5:]==QUESTION_MARK:
                 # logging.debug("p tag[5:2]=" + p.tag[5:])
                 # logging.debug("i break")
                 qq_exist = True
