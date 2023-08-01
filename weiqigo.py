@@ -3,10 +3,10 @@
 
 import tkinter as tk
 from tkinter import filedialog
+import webbrowser
 
 from board import *
 import sgf
-# from sgfboardtree import BoardTree
 from sgfboardtree import *
 from quizfactory import *
 
@@ -821,6 +821,9 @@ def show_hint():
     if_hint = not if_hint
     draw_board()
 
+def OpenUrl():
+    webbrowser.open_new('https://github.com/awvic/weiqigo')
+
 
 
 # 第一次執行，繪製初始盤面
@@ -941,5 +944,7 @@ hint_btn.deselect()
 # msgLabel = tk.Label(window, text='錯誤', font=('Arial',14,'bold'))  # 建立 label 標籤
 # msgLabel.pack()                                                     # 加入視窗中
 
+info_btn = tk.Button(window, text="?", command=OpenUrl)
+info_btn.place(relx=0.96, rely=0.96)
 
 window.mainloop()
