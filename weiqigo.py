@@ -183,13 +183,15 @@ def next():
             b.reset(board_size=19, komi=7.5)
             # 逐步下棋
             for m in nextmoves:
-                p = m.data[2:]
+                # p = m.data[2:]
+                p = m.data[2:4]
                 logging.debug(p)
                 # if not b.play(b.sgf_to_vertex(nextmoves[0].data[2:2])):
                 # if not b.play(b.sgf_to_vertex(p)):
                 #     logging.debug("illegal move at " + p)
 
-                if len(p)!=2:
+                # if len(p)!=2:
+                if p==PASS_MARK:
                     # PASS 虛手
                     if not b.play(PASS):
                         logging.debug("illegal move at " + p)
@@ -198,7 +200,8 @@ def next():
                         logging.debug("illegal move at " + p)                    
 
             # 最後一手是虛手時顯示虛手
-            if len(nextmoves[-1].data[2:])!=2:
+            # if len(nextmoves[-1].data[2:])!=2:
+            if nextmoves[-1].data[2:4] == PASS_MARK:
                 ans_right += "虛手"
                 ans_label.set(ans_right)
 
@@ -238,10 +241,12 @@ def prev():
 
             # b.reset(board_size=19, komi=7.5)
             for m in moves:
-                p = m.data[2:]
+                # p = m.data[2:]
+                p = m.data[2:4]
                 logging.debug(p)
                 # if not b.play(b.sgf_to_vertex(nextmoves[0].data[2:2])):
-                if len(p)!=2:
+                # if len(p)!=2:
+                if p==PASS_MARK:
                     # PASS 虛手
                     if not b.play(PASS):
                         logging.debug("illegal move at " + p)
@@ -250,7 +255,8 @@ def prev():
                         logging.debug("illegal move at " + p)
 
             # 最後一手是虛手時顯示虛手
-            if len(moves[-1].data[2:])!=2:
+            # if len(moves[-1].data[2:])!=2:
+            if moves[-1].data[2:4] == PASS_MARK:
                 ans_right = "虛手"
                 ans_label.set(ans_right)
 
@@ -376,7 +382,8 @@ def draw_board():
         if if_hint:
             for m in move:
                 # 考慮虛手
-                if len(m.data[2:])!=2:
+                # if len(m.data[2:])!=2:
+                if m.data[2:4]==PASS_MARK:
                     # 虛手
                     pass
                 else:
@@ -609,12 +616,22 @@ def lmouse_down(event):
         if len(moves)>0:
             # b.reset(board_size=19, komi=7.5)
             for m in moves:
-                p = m.data[2:]
+                # p = m.data[2:]
+                p = m.data[2:4]
                 logging.debug(p)
                 # if not b.play(b.sgf_to_vertex(nextmoves[0].data[2:2])):
-                # 這裏暫不考慮SGF內有虛手的問題
-                if not b.play(b.sgf_to_vertex(p)):
-                    logging.debug("illegal move at " + p)
+                # if not b.play(b.sgf_to_vertex(p)):
+                #     logging.debug("illegal move at " + p)
+
+                # if len(p)!=2:
+                if p==PASS_MARK:
+                    # PASS 虛手
+                    if not b.play(PASS):
+                        logging.debug("illegal move at " + p)
+                else:
+                    if not b.play(b.sgf_to_vertex(p)):
+                        logging.debug("illegal move at " + p)
+
         # 重繪盤面
         draw_board()   
 
@@ -681,13 +698,15 @@ def load_and_show_question_file():
             b.reset(board_size=19, komi=7.5)
             for m in nextmoves:
                 logging.debug("m.data=" + m.data)
-                p = m.data[2:]
+                # p = m.data[2:]
+                p = m.data[2:4]
                 logging.debug(p)
                 # if not b.play(b.sgf_to_vertex(nextmoves[0].data[2:2])):
                 # if not b.play(b.sgf_to_vertex(p)):
                 #     logging.debug("illegal move at " + p)
 
-                if len(p)!=2:
+                # if len(p)!=2:
+                if p==PASS_MARK:
                     # PASS 虛手
                     if not b.play(PASS):
                         logging.debug("illegal move at " + p)
@@ -742,13 +761,15 @@ def switch_question_file():
             b.reset(board_size=19, komi=7.5)
             for m in nextmoves:
                 logging.debug("m.data=" + m.data)
-                p = m.data[2:]
+                # p = m.data[2:]
+                p = m.data[2:4]
                 logging.debug(p)
                 # if not b.play(b.sgf_to_vertex(nextmoves[0].data[2:2])):
                 # if not b.play(b.sgf_to_vertex(p)):
                 #     logging.debug("illegal move at " + p)
 
-                if len(p)!=2:
+                # if len(p)!=2:
+                if p==PASS_MARK:
                     # PASS 虛手
                     if not b.play(PASS):
                         logging.debug("illegal move at " + p)

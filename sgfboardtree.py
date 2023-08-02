@@ -19,9 +19,13 @@ import os
 # 根結點永遠是root
 # root的下一結點是sgf的第一步棋資料
 
+# 詰題符號
 QUESTION_MARK = "@@"
 RIGHT_MARK = "@R"
 WRONG_MARK = "@W"
+
+# 虛手
+PASS_MARK = "  " 
 
 
 class BoardTree(object):
@@ -32,10 +36,17 @@ class BoardTree(object):
         for node in child.nodes:
             move = ""
             comment = ""
-            # 虛手的資料為 B:: 或 W::
+            # 虛手的資料為 B:  : 或 W:  :
+            # 修正同時為虛手又為 QUESTION_MARK 可能的bug 
+            # => node tag = X:XX:XX 的資料結構
+            # => node data = X:XX
             for p in node.properties.items():
                 if p[0][0] == "B" or p[0][0] == "W":
-                    move = p[0][0]+":"+p[1][0]
+                    if len(p[1][0])==0:
+                        # 虛手
+                        move = p[0][0]+":"+PASS_MARK
+                    else:
+                        move = p[0][0]+":"+p[1][0]
                 if p[0][0] == "C":
                     comment = p[1][0]
             if move:
@@ -64,7 +75,13 @@ class BoardTree(object):
                 first_child = collection.children[0].children[0].nodes[0]
                 for p in first_child.properties.items():
                     if len(p[0])==1 and (p[0][0] == "B" or p[0][0] == "W"):
-                        fc_move = p[0][0]+":"+p[1][0]  # 第一個變化
+                        # 第一個變化
+                        # fc_move = p[0][0]+":"+p[1][0]  
+                        if len(p[1][0])==0:
+                            # 虛手
+                            fc_move = p[0][0]+":"+PASS_MARK
+                        else:
+                            fc_move = p[0][0]+":"+p[1][0]
 
                 logging.debug("first child move:" + fc_move)
 
@@ -73,13 +90,18 @@ class BoardTree(object):
                 # collection[0]裏的 nodes 是主節點的所有nodes(整局棋內由第一手到最後一手)
                 # 所以要自己找出第一個分支的點，只紀錄第一變化手之前的點
                 # 其餘的棋在child內紀錄
-                # 虛手的資料為 B:: 或 W::
+                # 虛手的資料為 B:  : 或 W:  :
 
                 move = ""
                 comment = ""
                 for p in node.properties.items():
                     if len(p[0])==1 and (p[0][0] == "B" or p[0][0] == "W"):
-                        move = p[0][0]+":"+p[1][0]
+                        # move = p[0][0]+":"+p[1][0]
+                        if len(p[1][0])==0:
+                            # 虛手
+                            move = p[0][0]+":"+PASS_MARK
+                        else:
+                            move = p[0][0]+":"+p[1][0]                        
                         if_black_white = True
                     if len(p[0])==1 and p[0][0] == "C":
                         comment = p[1][0]
