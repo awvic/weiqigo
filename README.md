@@ -14,13 +14,13 @@ A weiqi go tool. 圍棋打譜死活練習程式
 
 ## 快速開始
 * Windows 可執行檔下載(https://github.com/awvic/weiqigo/releases)
-* 使用 python 環境執行
-    開始前請先安裝以下的 python library（本程式使用 python3）
-    1. treelib
-    2. numpy
-    請輸入下列指令安裝，或自行使用下載可執行的版本
-    pip3 install -r requirements.txt
-    請輸入以下指令打開圖形界面
+* 使用 python 環境執行</BR>
+    開始前請先安裝以下的 python library（本程式使用 python3）</BR>
+    1. treelib</BR>
+    2. numpy</BR>
+    請輸入下列指令安裝，或自行使用下載可執行的版本</BR>
+    pip3 install -r requirements.txt</BR>
+    請輸入以下指令打開圖形界面</BR>
     $ python weiqigo.py
 
 ## 操作說明
