@@ -13,20 +13,15 @@ A weiqi go tool. 圍棋打譜死活練習程式
 * [board.py](https://github.com/ymgaq/Pyaq)  (圍棋對奕規則)
 
 ## 快速開始
-
-開始前請先安裝以下的 python library（本程式使用 python3）
-1. Tkinter
-2. treelib
-3. numpy
-
-請輸入下列指令安裝，或自行使用下載可執行的版本
-
+* Windows 可執行檔下載(https://github.com/awvic/weiqigo/releases)
+* 使用 python 環境執行
+    開始前請先安裝以下的 python library（本程式使用 python3）
+    1. treelib
+    2. numpy
+    請輸入下列指令安裝，或自行使用下載可執行的版本
     pip3 install -r requirements.txt
-
-請輸入以下指令打開圖形界面
-
+    請輸入以下指令打開圖形界面
     $ python weiqigo.py
-
 
 ## 操作說明
 * 選目錄：按「選目錄」鈕，選擇欲練習檔案(sgf格式)存放的目錄，不包含子目錄。</BR>
